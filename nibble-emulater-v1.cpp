@@ -49,74 +49,69 @@ int main() {
                 int stkc[] = {-1, -1};
                 bool skif = false;
                 
-                for (int po = 0; po < program.length(); po += 2) {
-                    char h = program[po];
-                    char l = (po + 1 < program.length()) ? program[po + 1] : '0';
-                    
-                    int high = (h >= 'a') ? (h - 'a' + 10) : (h - '0');
-                    int low = (l >= 'a') ? (l - 'a' + 10) : (l - '0');
-                    
-                    int opcode = (high << 4) | low;
+                for (int po = 0; po < program.length(); po++) {
+                    char hex = program[po];
+                    int nibble = (hex >= 'a') ? (hex - 'a' + 10) : (hex - '0');
                     
                     if (skif) {
-                        if (opcode == 0xf0) {
+                        if (nibble == 0xf) {
                             skif = false;
                         }
                         continue;
                     }
                     
-                    if (opcode == 0x00) {
+                    if (nibble == 0x0) {
                         if (log) std::cout << "ign" << std::endl;
-                    } else if (opcode == 0x20) {
+                    } else if (nibble == 0x2) {
                         reg[0]++;
                         if (log) std::cout << "ad1 reg[0]=" << reg[0] << std::endl;
-                    } else if (opcode == 0x30) {
+                    } else if (nibble == 0x3) {
                         reg[1]++;
                         if (log) std::cout << "ad1 reg[1]=" << reg[1] << std::endl;
-                    } else if (opcode == 0x40) {
+                    } else if (nibble == 0x4) {
                         reg[0] = stk1[stkc[0]];
                         stkc[0]--;
                         if (log) std::cout << "mvrs reg[0]=" << reg[0] << std::endl;
-                    } else if (opcode == 0x50) {
+                    } else if (nibble == 0x5) {
                         reg[1] = stk1[stkc[0]];
                         stkc[0]--;
                         if (log) std::cout << "mvrs reg[1]=" << reg[1] << std::endl;
-                    } else if (opcode == 0x60) {
+                    } else if (nibble == 0x6) {
                         reg[0] = stk2[stkc[1]];
                         stkc[1]--;
                         if (log) std::cout << "mvrs reg[0]=" << reg[0] << std::endl;
-                    } else if (opcode == 0x70) {
+                    } else if (nibble == 0x7) {
                         reg[1] = stk2[stkc[1]];
                         stkc[1]--;
                         if (log) std::cout << "mvrs reg[1]=" << reg[1] << std::endl;
-                    } else if (opcode == 0x80) {
+                    } else if (nibble == 0x8) {
                         stkc[0]++;
                         stk1[stkc[0]] = reg[0];
                         if (log) std::cout << "mvsr reg[0]=" << reg[0] << std::endl;
-                    } else if (opcode == 0x90) {
+                    } else if (nibble == 0x9) {
                         stkc[0]++;
                         stk1[stkc[0]] = reg[1];
                         if (log) std::cout << "mvsr reg[1]=" << reg[1] << std::endl;
-                    } else if (opcode == 0xa0) {
+                    } else if (nibble == 0xa) {
                         stkc[1]++;
                         stk2[stkc[1]] = reg[0];
                         if (log) std::cout << "mvsr reg[0]=" << reg[0] << std::endl;
-                    } else if (opcode == 0xb0) {
+                    } else if (nibble == 0xb) {
                         stkc[1]++;
                         stk2[stkc[1]] = reg[1];
                         if (log) std::cout << "mvsr reg[1]=" << reg[1] << std::endl;
-                    } else if (opcode == 0xc0) {
+                    } else if (nibble == 0xc) {
                         reg[0] = reg[0] + reg[1];
                         if (log) std::cout << "add reg[0]=" << reg[0] << std::endl;
-                    } else if (opcode == 0xd0) {
+                    } else if (nibble == 0xd) {
                         reg[0] = reg[0] - reg[1];
                         if (log) std::cout << "sub reg[0]=" << reg[0] << std::endl;
-                    } else if (opcode == 0xe0) {
+                    } else if (nibble == 0xe) {
                         if (reg[0] != reg[1]) {
                             skif = true;
                         }
                         if (log) std::cout << "com " << (reg[0] == reg[1]) << std::endl;
-                    } else if (opcode == 0xf0) {
+                    } else if (nibble == 0xf) {
                         if (log) std::cout << "ecom" << std::endl;
                     }
                     
