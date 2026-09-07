@@ -1,0 +1,46 @@
+MAIN ISA
+
+0000. ingnore
+001x. add one to reg
+	0010. A
+	0011. B
+01xx. move stack to reg
+	01x1. reg b
+	011x. stack b
+10xx. move reg to stack
+	10x1. reg b
+	101x. stack b 
+1100. add reg b to reg a
+1101. sub reb a from reg b
+	(final output of alu oprations ends up in reg a)
+1110. compare if reg a == reg b (if not then signal to ignore everything untill 1111 0110 is read)
+1111. decoder outputs IGN and waits for net nibble 
+	0000. reboot/clear memory
+	001x. jump to value in reg
+		0010. reg a
+		0011. reg b
+	010x. read value in port reg b and put input port value into stack
+		0100. A
+		0101. B
+	0110. end of if statement
+	0111. output value in reg a to output port value in reg b
+
+SMALL ISA
+
+V1
+
+0000. ingnore
+001x. add one to reg
+	0010. A
+	0011. B
+01xx. move stack to reg
+	01x1. reg b
+	011x. stack b
+10xx. move reg to stack
+	10x1. reg b
+	101x. stack b 
+1100. add reg b to reg a
+1101. sub reb a from reg b
+	(final output of alu oprations ends up in reg a)
+1110. compare if reg a == reg b (if not then signal to ignore everything until 1111 is read)
+1111. end of if statement
