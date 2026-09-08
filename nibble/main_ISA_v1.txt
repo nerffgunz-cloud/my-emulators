@@ -1,0 +1,83 @@
+0000. ignore
+
+001x. add one to register
+    0010. A
+    0011. B
+
+01xx. move stack to register
+    0100. stack 1 -> A
+    0101. stack 1 -> B
+    0110. stack 2 -> A
+    0111. stack 2 -> B
+
+10xx. move register to stack
+    1000. A -> stack 1
+    1001. B -> stack 1
+    1010. A -> stack 2
+    1011. B -> stack 2
+
+1100. add register B to register A
+1101. subtract register B from register A
+    (final output of ALU operations ends up in register A)
+
+1110. compare if register A == register B
+    if A != B, ignore everything until 1111 0110 is read
+
+1111. decoder
+    0000. reboot / clear memory
+
+    001x. jump to value in register
+        0010. register A
+        0011. register B
+
+    0100. read input and put value into stack 1
+    0101. read input and put value into stack 2
+
+    0110. end of if statement
+
+    0111. output value in register A
+
+
+ASM
+
+nop    - do nothing
+
+adda   - add one to register A
+addb   - add one to register B
+
+popa   - move the top value of stack 1 to register A
+popb   - move the top value of stack 1 to register B
+
+popa2  - move the top value of stack 2 to register A
+popb2  - move the top value of stack 2 to register B
+
+pusha  - move register A to stack 1
+pushb  - move register B to stack 1
+
+pusha2 - move register A to stack 2
+pushb2 - move register B to stack 2
+
+add    - add register B to register A
+         A = A + B
+
+sub    - subtract register B from register A
+         A = A - B
+
+cmp    - compare register A and register B
+         cmp true  = A == B
+         cmp false = A != B
+         if false, ignore instructions until endif
+
+reboot - reboot and clear memory
+
+jmpa   - jump to the address stored in register A
+jmpb   - jump to the address stored in register B
+
+ina    - read input and put the value onto stack 1
+inb    - read input and put the value onto stack 2
+
+endif  - end an if statement
+
+out    - output the value in register A
+
+#      - comment line

@@ -1,0 +1,121 @@
+### ISA Instructions
+
+nop
+0
+0000
+Do nothing.
+
+adda
+2
+0010
+Add one to register A.
+
+addb
+3
+0011
+Add one to register B.
+
+popa
+4
+0100
+Move the top value of stack 1 to register A.
+
+popb
+5
+0101
+Move the top value of stack 1 to register B.
+
+popa2
+6
+0110
+Move the top value of stack 2 to register A.
+
+popb2
+7
+0111
+Move the top value of stack 2 to register B.
+
+pusha
+8
+1000
+Move register A to stack 1.
+
+pushb
+9
+1001
+Move register B to stack 1.
+
+pusha2
+a
+1010
+Move register A to stack 2.
+
+pushb2
+b
+1011
+Move register B to stack 2.
+
+add
+c
+1100
+Add register B to register A (A = A + B).
+
+sub
+d
+1101
+Subtract register B from register A (A = A - B).
+
+cmp
+e
+1110
+Compare register A and register B. If A != B, ignore instructions until endif.
+
+reboot
+f0
+1111 0000
+Reboot and clear memory.
+
+jmpa
+f22
+1111 0010 0010
+Jump to the address stored in register A.
+
+jmpb
+f23
+1111 0011 0011
+Jump to the address stored in register B.
+
+ina
+f4
+1111 0100
+Read input and put the value onto stack 1.
+
+inb
+f5
+1111 0101
+Read input and put the value onto stack 2.
+
+endif
+f6
+1111 0110
+End an if statement.
+
+out
+f7
+1111 0111
+Output the value in register A.
+
+print('x')
+f8 xx
+1111 1000 xxxx xxxx
+Output one character using the 8-bit value xxxx xxxx.
+
+else
+f9
+1111 1001
+Else branch of a cmp statement.
+
+### ISA Macros
+
+swap
+Swap the top values of stack 1 and stack 2.
