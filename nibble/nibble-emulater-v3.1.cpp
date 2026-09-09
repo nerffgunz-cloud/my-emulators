@@ -279,6 +279,7 @@ int main() {
                     char hex = program[po];
                     int nibble = (hex >= 'a') ? (hex - 'a' + 10) : (hex - '0');
                     
+                    // IF WE ARE SKIPPING THE 'IF' BLOCK
                     if (skif) {
                         if (nibble == 0xf) {
                             if (po + 1 < program.length()) {
@@ -286,11 +287,9 @@ int main() {
                                 char hex2 = program[po];
                                 int nibble2 = (hex2 >= 'a') ? (hex2 - 'a' + 10) : (hex2 - '0');
                                 if (nibble2 == 0x6) {
-                                    skif = false;
-                                    elseMode = false;
+                                    skif = false; // hit endif, done skipping
                                 } else if (nibble2 == 0x9) {
-                                    skif = false;
-                                    elseMode = true;
+                                    skif = false; // hit else, stop skipping so we run the else block
                                 }
                                 po--;
                             }
@@ -298,6 +297,7 @@ int main() {
                         continue;
                     }
                     
+                    // IF WE ARE SKIPPING THE 'ELSE' BLOCK
                     if (elseMode) {
                         if (nibble == 0xf) {
                             if (po + 1 < program.length()) {
@@ -305,7 +305,7 @@ int main() {
                                 char hex2 = program[po];
                                 int nibble2 = (hex2 >= 'a') ? (hex2 - 'a' + 10) : (hex2 - '0');
                                 if (nibble2 == 0x6) {
-                                    elseMode = false;
+                                    elseMode = false; // hit endif, done skipping
                                 }
                                 po--;
                             }
@@ -442,6 +442,7 @@ int main() {
                                     po--;
                                 }
                             } else if (nibble2 == 0x9) {
+                                elseMode = true; // IMPORTANT FIX: We finished the 'if', start skipping the 'else'!
                                 if (log) std::cout << "else" << std::endl;
                             } else {
                                 po--;
