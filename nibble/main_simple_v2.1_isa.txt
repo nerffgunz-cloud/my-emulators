@@ -118,4 +118,19 @@ Else branch of a cmp statement.
 ### ISA Macros
 
 swap
+
 Swap the top values of stack 1 and stack 2.
+
+print
+
+using " lets  you print strings while ' prints charactor
+
+print("hello")
+
+turns into
+
+print('h')
+print('e')
+print('l')
+print('l')
+print('o')
